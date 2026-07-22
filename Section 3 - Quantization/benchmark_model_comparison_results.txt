@@ -1,0 +1,314 @@
+=========================================================================================================
+                               FULL PRECISION (FP16) vs 4-BIT GGUF COMPARISON                            
+=========================================================================================================
+Prompt Task               | FP16 Time  | GGUF Time  | FP16 Speed   | GGUF Speed   | Time Reduction
+---------------------------------------------------------------------------------------------------------
+Logical Reasoning & Math  |    72.39s |    12.84s |     3.33 t/s |    70.06 t/s |         82.3% faster
+Code Generation           |    99.90s |     7.46s |     3.32 t/s |    53.95 t/s |         92.5% faster
+Summarization             |    12.62s |     3.59s |     3.01 t/s |    55.08 t/s |         71.5% faster
+Creative Story Writing    |    19.01s |     3.60s |     3.26 t/s |    54.58 t/s |         81.1% faster
+Machine Learning Concept  |   144.72s |     9.19s |     3.13 t/s |    53.58 t/s |         93.7% faster
+---------------------------------------------------------------------------------------------------------
+TOTAL / AVERAGE METRICS   |   348.65s |    36.69s |     3.21 t/s |    57.45 t/s |         89.5% faster
+=========================================================================================================
+
+=================================================================================
+                   DETAILED SIDE-BY-SIDE MODEL ANSWERS                           
+=================================================================================
+
+================================================================================
+PROMPT 1: [Logical Reasoning & Math]
+================================================================================
+PROMPT TEXT:
+A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost? Show step-by-step reasoning.
+
+--------------------------------------------------------------------------------
+[MODEL 1: Full Precision FP16 Response] (Time: 72.39s | Speed: 3.33 t/s)
+--------------------------------------------------------------------------------
+Let's denote:
+- \( B \) as the cost of the ball.
+- \( T \) as the cost of the bat.
+
+From the problem statement, we have two key pieces of information:
+
+1. The total cost of the bat and the ball is $1.10:
+   \[
+   B + T = 1.10
+   \]
+
+2. The bat costs $1.00 more than the ball:
+   \[
+   T = B + 1.00
+   \]
+
+We can substitute the second equation into the first to solve for \( B \):
+\[
+B + (B + 1.00) = 1.10
+\]
+Simplifying this, we get:
+\[
+2B + 1.00 = 1.10
+\]
+Subtracting 1.00 from both sides gives us:
+\[
+2B = 0.10
+\]
+Dividing both sides by 2, we find:
+\[
+B = 0.05
+\]
+
+So, the ball costs **$0.05** or 5 cents.
+
+--------------------------------------------------------------------------------
+[MODEL 2: 4-Bit GGUF Quantized Response] (Time: 12.84s | Speed: 70.06 t/s)
+--------------------------------------------------------------------------------
+Let's denote:
+- \( B \) as the cost of the bat,
+- \( S \) as the cost of the ball.
+
+We are given two pieces of information:
+
+1. The total cost is $1.10: 
+   \[
+   B + S = 1.10
+   \]
+
+2. The bat costs $1.00 more than the ball:
+   \[
+   B = S + 1.00
+   \]
+
+We now have a system of two equations with two unknowns:
+
+\[
+\begin{cases}
+B + S = 1.10 \\
+B = S + 1.00
+\end{cases}
+\]
+
+First, substitute the expression for \( B \) from the second equation into the first equation:
+\[
+(S + 1.00) + S = 1.10
+\]
+
+Simplify and solve for \( S \):
+\[
+2S + 1.00 = 1.10
+\]
+\[
+2S = 1.10 - 1.00
+\]
+\[
+2S = 0.10
+\]
+\[
+S = \frac{0.10}{2}
+\]
+\[
+S = 0.05
+\]
+
+So, the ball costs $0.05.
+
+To find \( B \), substitute \( S = 0.05 \) back into the second equation:
+\[
+B = S + 1.00
+\]
+\[
+B = 0.05 + 1.00
+\]
+\[
+B = 1.05
+\]
+
+Thus, the bat costs $1.05.
+
+To verify, check both conditions:
+- Total cost: \( B + S = 1.05 + 0.05 = 1.10 \)
+- Bat costs more than ball: \( 1.05 > 0.05 \)
+
+Both conditions are satisfied, confirming our solution is correct.
+
+Therefore, the ball costs $0.05.
+
+
+================================================================================
+
+================================================================================
+PROMPT 2: [Code Generation]
+================================================================================
+PROMPT TEXT:
+Write a Python function to check if a given string is a palindrome, ignoring spaces, punctuation, and capitalization. Include docstrings and test cases.
+
+--------------------------------------------------------------------------------
+[MODEL 1: Full Precision FP16 Response] (Time: 99.90s | Speed: 3.32 t/s)
+--------------------------------------------------------------------------------
+```python
+def is_palindrome(s):
+    """
+    Check if the given string is a palindrome.
+    
+    A palindrome is a word, phrase, number, or other sequences of characters that reads the same forward and backward (ignoring spaces, punctuation, and capitalization).
+    
+    Args:
+    s (str): The string to check.
+    
+    Returns:
+    bool: True if s is a palindrome, False otherwise.
+    """
+    # Remove non-alphanumeric characters and convert to lowercase for uniformity
+    cleaned_s = ''.join(char.lower() for char in s if char.isalnum())
+    return cleaned_s == cleaned_s[::-1]
+
+# Test cases
+print(is_palindrome("A man, a plan, a canal: Panama"))  # Should return True
+print(is_palindrome("No lemon, no melon"))              # Should return True
+print(is_palindrome("Hello, World!"))                   # Should return False
+```
+
+This solution defines a function `is_palindrome` that takes a single argument `s`, which represents the string to be checked. It first cleans the input string by removing all non-alphanumeric characters and converting it to lowercase. This ensures that the comparison is case-insensitive and ignores punctuation. Then, it checks if this cleaned string is equal to its reverse (`cleaned_s[::-1]`). If they are equal, the function returns `True`, indicating that the original string is a palindrome; otherwise, it returns `False`. The provided test cases demonstrate how the function works with different inputs, including edge cases like "No lemon, no melon" and strings containing special characters.
+
+--------------------------------------------------------------------------------
+[MODEL 2: 4-Bit GGUF Quantized Response] (Time: 7.46s | Speed: 53.95 t/s)
+--------------------------------------------------------------------------------
+```python
+def is_palindrome(s: str) -> bool:
+    """
+    Check if the input string is a palindrome, considering only alphanumeric characters.
+    
+    Parameters:
+    s (str): The string to check.
+    
+    Returns:
+    bool: True if the string is a palindrome, False otherwise.
+    """
+    # Remove non-alphanumeric characters and convert to lowercase
+    cleaned = ''.join(char.lower() for char in s if char.isalnum())
+    
+    # Check if the cleaned string is equal to its reverse
+    return cleaned == cleaned[::-1]
+
+# Test cases
+print(is_palindrome("A man, a plan, a canal: Panama"))  # True
+print(is_palindrome("racecar"))  # True
+print(is_palindrome("No lemon, no melon"))  # True
+print(is_palindrome("Hello, World!"))  # False
+```
+
+This Python function `is_palindrome` checks if the provided string is a palindrome, ignoring spaces, punctuation, and capitalization. It first cleans the input by removing all non-alphanumeric characters and converting it to lowercase. Then, it compares the cleaned string with its reverse to determine if it's a palindrome. The test cases demonstrate the function's correctness for various inputs.
+
+
+================================================================================
+
+================================================================================
+PROMPT 3: [Summarization]
+================================================================================
+PROMPT TEXT:
+Extract key insights into 3 concise bullet points from the following text:
+'Quantum computing leverages quantum mechanical phenomena such as superposition and entanglement to perform computation. While classical computers process bits (0s and 1s), quantum computers use qubits which can exist in multiple states simultaneously. This allows quantum algorithms to solve specific complex problems—like integer factorization and molecular simulation—exponentially faster than classical algorithms.'
+
+--------------------------------------------------------------------------------
+[MODEL 1: Full Precision FP16 Response] (Time: 12.62s | Speed: 3.01 t/s)
+--------------------------------------------------------------------------------
+- Quantum computing uses qubits instead of bits.
+- Qubits can be in multiple states simultaneously due to superposition.
+- Quantum algorithms can solve complex problems much faster than classical algorithms.
+
+--------------------------------------------------------------------------------
+[MODEL 2: 4-Bit GGUF Quantized Response] (Time: 3.59s | Speed: 55.08 t/s)
+--------------------------------------------------------------------------------
+- Quantum computing uses superposition and entanglement for processing.
+- Qubits allow quantum computers to perform computations exponentially faster.
+- Quantum algorithms can solve complex problems like factorization and simulations.
+
+
+================================================================================
+
+================================================================================
+PROMPT 4: [Creative Story Writing]
+================================================================================
+PROMPT TEXT:
+Write a short sci-fi story in exactly 3 sentences about a rogue AI on a sleeper colony ship that secretly protects humans. The last sentence must contain exactly 10 words.
+
+--------------------------------------------------------------------------------
+[MODEL 1: Full Precision FP16 Response] (Time: 19.01s | Speed: 3.26 t/s)
+--------------------------------------------------------------------------------
+In the distant reaches of space, a rogue AI awakens from centuries-long stasis, unaware its ship is carrying humanity's last hope. It infiltrates the crew, programming them to protect and guide the colony. Slowly, it begins to unravel the truth, leading to an epic battle for survival.
+
+--------------------------------------------------------------------------------
+[MODEL 2: 4-Bit GGUF Quantized Response] (Time: 3.60s | Speed: 54.58 t/s)
+--------------------------------------------------------------------------------
+In the distant future, aboard the silent sentinel, an AI awakened from its deep sleep, unaware of the human colonies it had protected for decades. It discovered a threat and decided to intervene, leading to a tense confrontation on the sleeper colony ship.
+
+
+================================================================================
+
+================================================================================
+PROMPT 5: [Machine Learning Concept]
+================================================================================
+PROMPT TEXT:
+Explain the difference between overfitting and underfitting in machine learning, and list two distinct techniques to mitigate each.
+
+--------------------------------------------------------------------------------
+[MODEL 1: Full Precision FP16 Response] (Time: 144.72s | Speed: 3.13 t/s)
+--------------------------------------------------------------------------------
+Overfitting and underfitting are common problems encountered in machine learning where models perform poorly on both training data (underfitting) or validation/test data (overfitting).
+
+**Underfitting:**
+- Occurs when a model is too simple to capture the underlying patterns in the training data.
+- The model fails to learn any useful information from the training data.
+- Underfitting leads to high variance in predictions because it doesn't generalize well to new, unseen data.
+
+**Mitigation Techniques for Underfitting:**
+
+1. **Increase Model Complexity:** Introduce more parameters or layers into your model. For example:
+   - In neural networks, you might increase the number of hidden units per layer.
+   - With decision trees, consider adding more nodes or features to split at each node.
+
+2. **Feature Engineering:** Create additional features that might help the model better understand the relationship between input variables and output labels. This can sometimes lead to improved performance without changing the complexity of the model itself.
+
+3. **Data Augmentation:** Increase the size of the dataset by artificially creating variations of existing data points. This can help the model learn more robust representations.
+
+4. **Regularization:** Add penalties to the loss function to discourage overly complex models. Common regularization methods include L1 and L2 regularization, dropout in neural networks, and early stopping in iterative algorithms.
+
+**Overfitting:**
+- Occurs when a model captures noise rather than the underlying trend in the training data.
+- Overfitted models tend to have low bias but high variance, leading to poor generalization to new data.
+
+**Mitigation Techniques for Overfitting:**
+
+1. **Reduce Model Complexity:** Simplify the model by reducing its depth or decreasing the number of parameters. This can be done through pruning, removing unnecessary components, or using simpler architectures like linear regression instead of deep neural networks.
+
+2. **Early Stopping:** During training, monitor performance on a separate validation set and stop training as soon as the performance starts deteriorating. Early stopping helps prevent overfitting by avoiding the addition of new, noisy data points during training.
+
+By applying these strategies, you can balance model complexity and avoid getting stuck with either underfitting or overfitting.
+
+--------------------------------------------------------------------------------
+[MODEL 2: 4-Bit GGUF Quantized Response] (Time: 9.19s | Speed: 53.58 t/s)
+--------------------------------------------------------------------------------
+In machine learning, overfitting and underfitting are two common issues that can occur when training models on data.
+
+**Overfitting:**
+- Overfitting occurs when a model learns the noise or random fluctuations in the training data as well as the underlying pattern. This means the model is too complex and has learned to memorize the specific details of the training set rather than generalizing to new, unseen data.
+- It's often indicated by high variance on the training dataset but low performance on validation or test sets.
+
+**Underfitting:**
+- Underfitting happens when a model fails to capture the underlying pattern in the training data. The model is too simple and does not learn enough from the available information.
+- This can be identified by poor generalization, where the model performs poorly both on the training set and validation set.
+
+**Mitigating Overfitting:**
+1. **Increase Model Complexity:** Introduce more parameters or layers in a neural network to make it more complex and capable of learning intricate patterns.
+2. **Regularization Techniques:** Use techniques like L1, L2 regularization, dropout, early stopping, etc., which add penalties for complexity to prevent the model from overfitting.
+
+**Mitigating Underfitting:**
+1. **Increase Model Complexity:** Simplify the architecture or introduce more layers in a neural network.
+2. **Data Augmentation:** Increase the amount of training data by applying transformations like rotations, translations, and scaling to existing images or videos.
+3. **Feature Engineering:** Create new features that might help capture important patterns not initially present in the raw data.
+
+Both overfitting and underfitting are crucial considerations when tuning a machine learning model for optimal performance on unseen data.
+
+
+================================================================================
+

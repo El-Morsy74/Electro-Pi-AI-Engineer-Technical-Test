@@ -1,0 +1,61 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments (Global & Project specific)
+venv/
+.venv/
+env/
+.env/
+Section 1 - LiveKit Agents/venv/
+Section 1 - LiveKit Agents/.venv/
+Section 2 - LangChain/RAG/
+
+# Environment Variables & API Keys
+.env
+Section 1 - LiveKit Agents/.env
+Section 2 - LangChain/.env
+Section 4 - Model Deployment/.env
+*.env.local
+*.env.*.local
+
+# Vector database directories
+Section 2 - LangChain/chroma_db_rag/
+
+# IDE / Editor configurations
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# System Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store

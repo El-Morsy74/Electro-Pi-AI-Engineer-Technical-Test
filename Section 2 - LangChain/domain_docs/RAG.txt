@@ -1,0 +1,109 @@
+What is an LLM and How Does RAG Make It Useful?
+Introduction
+Large Language Models (LLMs) are powerful AI systems that can understand and generate human-like text. They have been trained on massive amounts of data and can perform tasks such as answering questions, writing stories, generating code, and more.
+
+However, LLMs have a key limitation: they only know what was in their training data, which is often outdated and not specific to your company or documents.
+
+What is an LLM?
+An LLM is a neural network model trained on huge text datasets to predict the next word in a sequence. This training allows the model to learn patterns in language, facts, reasoning, and even some domain knowledge.
+
+Common examples of LLMs include:
+
+GPT-4 and other models from OpenAI
+
+Llama 3 and Llama 4 from Meta
+
+Mistral, Qwen, and many others
+
+LLMs are typically used via APIs or by running them locally on your own hardware.
+
+The Problem with Plain LLMs
+Even though LLMs are very powerful, they have several important limitations:
+
+No access to your private data
+An LLM cannot read your databases, internal documents, or proprietary knowledge unless you explicitly give it that information.
+
+Outdated knowledge
+The model only knows what was in its training data, which may not include recent events, company policies, or new products.
+
+Hallucinations
+LLMs sometimes generate confident but incorrect answers, especially when asked about topics they don’t know well.
+
+To solve these problems, we use a technique called Retrieval-Augmented Generation (RAG).
+
+What is RAG?
+RAG stands for Retrieval-Augmented Generation. It is a system that combines:
+
+A retrieval component that searches your documents for relevant information
+
+A generation component (the LLM) that uses that information to answer the user’s question.
+
+In simple terms:
+
+First, the system finds the most relevant text from your documents.
+
+Then, it sends that text plus the user’s question to the LLM.
+
+Finally, the LLM generates an answer based on the retrieved context.
+
+This way, the LLM is not just guessing from its training data; it is grounded in your actual documents.
+
+How RAG Works
+A typical RAG pipeline has these steps:
+
+Document ingestion
+Documents (PDFs, text files, web pages) are loaded and split into smaller chunks.
+
+Embedding
+Each chunk is converted into a numerical vector (embedding) that represents its meaning.
+
+Indexing
+The embeddings are stored in a vector database such as Chroma, Pinecone, or PostgreSQL with pgvector.
+
+Retrieval
+When a user asks a question, the question is also embedded. The system then searches for the chunks most similar to the question.
+
+Generation
+The top chunks are combined with the question into a prompt for the LLM.
+The LLM reads the context and generates an answer.
+
+Why Use RAG?
+RAG has several important advantages:
+
+Grounded answers
+The model answers based on real documents, not just training memory.
+
+Up-to-date information
+You can update your documents without retraining the model.
+
+Better for private data
+You can build systems that work with internal policies, manuals, and datasets.
+
+Fewer hallucinations
+If the documents don’t contain the answer, the model can be instructed to say “I don’t know” instead of guessing.
+
+Simple RAG Example
+Imagine a company that has a large internal policy document.
+
+A plain LLM might guess what the policy says or give an outdated answer.
+
+With RAG:
+
+The policy document is stored in a vector database.
+
+When an employee asks, “What is the vacation policy for new hires?”
+
+The system retrieves the relevant paragraphs from the policy.
+
+The LLM reads those paragraphs and generates a clear, accurate answer.
+
+RAG vs. Plain LLMs
+Aspect	Plain LLM	RAG-enhanced LLM
+Knowledge	Limited to training data	Includes your documents
+Data freshness	Can be outdated	Always up-to-date (if you update docs)
+Hallucinations	More common	Reduced when using good context
+Use cases	General conversations	Company Q&A, support, documentation
+Conclusion
+LLMs are powerful, but they are not perfect on their own. RAG adds a retrieval layer that connects the LLM to your own data, making it more accurate, up-to-date, and trustworthy.
+
+By combining retrieval with generation, you can build intelligent systems that answer questions using your actual documents instead of relying purely on what the model learned during training.
